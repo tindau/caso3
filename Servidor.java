@@ -8,6 +8,7 @@ public class Servidor extends Thread {
     public Servidor(int id, Buzon buzonServidores) {
         this.id = id;
         this.buzonServidores = buzonServidores;
+        this.random = new Random();
         setName("Servidor" + id);
     }
 
@@ -15,7 +16,7 @@ public class Servidor extends Thread {
     public void run() {
         System.out.println("Servidor " + id + " iniciado");
         while (true) {
-            Evento e = buzonServidores.retirar();
+            Evento e = buzonServidores.retirarSemi();
             if (e.esFin()) {
                 break;
             }

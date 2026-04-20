@@ -14,7 +14,7 @@ public class Clasificador extends Thread {
     public void run() {
         System.out.println(getName() + " iniciado");
         while (true) {
-            Evento e = buzonClasificacion.retirar();
+            Evento e = buzonClasificacion.retirarSemi();
             if (e.esFin()) {
                 break;
             }

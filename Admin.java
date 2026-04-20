@@ -26,7 +26,7 @@ public class Admin extends Thread {
             }
             if (random.nextInt(21) % 4 == 0) {
                 System.out.println("Administrador: evento " + e.getId() + " es inofensivo");
-                buzonClasificacion.depositar(e);
+                buzonClasificacion.depositarSemi(e);
                 administrados++;
             } else {
                 System.out.println("Administrador: evento " + e.getId() + " es malisioso, por ende descartado");

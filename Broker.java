@@ -14,6 +14,7 @@ public class Broker extends Thread {
         this.buzonAlertas = buzonAlertas;
         this.buzonClasificacion = buzonClasificacion;
         this.buzonEventos = buzonEntrada;
+        this.random = new Random();
     }
 
     @Override
@@ -21,7 +22,7 @@ public class Broker extends Thread {
         System.out.println("Broker iniciado");
         int procesados = 0;
         while (procesados < totEventos) {
-            Evento e = buzonEventos.retirar();
+            Evento e = buzonEventos.retirarSemi();
             if (random.nextInt(201) % 8 == 0) {
                 anomalos++;
                 buzonAlertas.depositarSemi(e);
