@@ -10,11 +10,11 @@ public class Sensor extends Thread {
     public Sensor(int id, int base, int ns, Buzon buzonEventos) 
     {
         this.id = id;
-        this.numEventos = base;
+        this.numEventos = base * id;
         this.ns = ns;
         this.buzonEventos = buzonEventos;
         this.random = new Random();
-        setName("SEnsor " + id);
+        setName("Sensor-" + id);
     }
 
     @Override
@@ -25,14 +25,7 @@ public class Sensor extends Thread {
             int tipoServidor = random.nextInt(ns) + 1;
             Evento e = new Evento("S: " + id + ", seq: " + seq, tipoServidor);
 
-            try
-            {
-                buzonEventos.depositar(e);
-            }
-            catch(InterruptedException ex)
-            {
-                System.err.println("Operación interrumpida.");
-            }
+            buzonEventos.depositar(e);
             
 
             Thread.yield();

@@ -15,33 +15,41 @@ public class Buzon {
     }
     
 
-    public synchronized void depositar(Evento evento) throws InterruptedException 
+    public synchronized void depositar(Evento evento) 
     {
  
         while (capacidad > 0 && cola.size() >= capacidad)
         {
             System.out.println("[" + nombre + "] Lleno (" + cola.size() + "/" + capacidad + "), esperando espacio...");
-            wait(); 
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } 
         }
         
         cola.add(evento);
-        System.out.println("[" + nombre + "] Depositado: " + evento +  " (tamaño: " + cola.size() + ")");
+        System.out.println("[" + nombre + "] Depositado: " + evento +  " (tamano: " + cola.size() + ")");
 
         notifyAll();
     }
     
 
-    public synchronized Evento retirar() throws InterruptedException 
+    public synchronized Evento retirar()  
     {
 
         while (cola.isEmpty()) 
         {
-            System.out.println("[" + nombre + "] Vacío, esperando eventos...");
-            wait(); 
+            System.out.println("[" + nombre + "] Vacio, esperando eventos...");
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
         
         Evento evento = cola.poll();
-        System.out.println("[" + nombre + "] Retirado: " + evento + " (tamaño: " + cola.size() + ")");
+        System.out.println("[" + nombre + "] Retirado: " + evento + " (tamano: " + cola.size() + ")");
         
         notifyAll();
         
@@ -49,31 +57,48 @@ public class Buzon {
     }
 
     public synchronized Evento retirarSemi() {
-        try {
-            return retirar();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("[" + nombre + "] retirarSemi interrumpido");
-            if (!cola.isEmpty()) {
-                Evento evento = cola.poll();
-                notifyAll();
-                return evento;
+        while (cola.isEmpty()) {
+            try {
+                wait(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("[" + nombre + "] retirarSemi interrumpido durante espera");
             }
-            return new Evento();
+            Thread.yield();
         }
+        Evento e = cola.poll();
+        notifyAll();
+        System.out.println("[" + nombre + "] Retirado (semi): " + e);
+        return e;
     }
 
     public synchronized void depositarSemi(Evento evento) {
-        try {
-            depositar(evento);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.err.println("[" + nombre + "] depositarSemi interrumpido");
+        while (capacidad > 0 && cola.size() >= capacidad) {
+            try {
+                wait(1);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("[" + nombre + "] depositarSemi interrumpido durante espera");
+            }
+            Thread.yield();
         }
+        cola.add(evento);
+        notifyAll();
+        System.out.println("[" + nombre + "] Depositado (semi): " + evento);
     }
 
     public synchronized void depositarPasiva(Evento evento) {
-        depositarSemi(evento);
+        while(capacidad > 0 && cola.size() >= capacidad) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.err.println("[" + nombre + "] depositarPasiva interrumpido durante espera");
+            }
+        }
+        cola.add(evento);
+        notifyAll();
+        System.out.println("[" + nombre + "] Depositado (pasiva): " + evento);
     }
     
     public synchronized boolean estaVacio() 
@@ -81,7 +106,7 @@ public class Buzon {
         return cola.isEmpty();
     }
     
-    public synchronized int getTamaño()
+    public synchronized int getTamano()
     {
         return cola.size();
     }

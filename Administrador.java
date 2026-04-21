@@ -18,14 +18,13 @@ public class Administrador implements Runnable
     
     @Override
     public void run() {
-        try {
             System.out.println("Administrador iniciado");
             
             while (true) {
-                Evento evento = buzonAlertas.retirar();
+                Evento evento = buzonAlertas.retirarSemi();
                 
                 if (evento.esFin()) {
-                    System.out.println("Administrador recibió evento FIN");
+                    System.out.println("Administrador recibio evento FIN");
                     break;
                 }
                 
@@ -35,7 +34,7 @@ public class Administrador implements Runnable
                 
                 if (esNormal)
                 {
-                    System.out.println("Administrador: Evento " + evento.getId() +  " es INOFENSIVO, enviando a clasificación");
+                    System.out.println("Administrador: Evento " + evento.getId() +  " es INOFENSIVO, enviando a clasificacion");
                     buzonClasificacion.depositar(evento);
                 } 
 
@@ -45,7 +44,7 @@ public class Administrador implements Runnable
                 }
             }
             
-            System.out.println("Administrador TERMINÓ");
+            System.out.println("Administrador TERMINO");
             
             // Enviar nc eventos de fin a los clasificadores
             for (int i = 0; i < numClasificadores; i++) 
@@ -54,11 +53,6 @@ public class Administrador implements Runnable
                 System.out.println("Administrador: Evento FIN " + (i+1) + "/" + numClasificadores + " enviado a Clasificadores");
             }
             
-        } 
-        catch (InterruptedException e) 
-        {
-            Thread.currentThread().interrupt();
-            System.err.println("Administrador interrumpido");
-        }
+        
     }
 }

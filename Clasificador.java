@@ -3,18 +3,18 @@ public class Clasificador extends Thread {
     private Buzon[] buzonServidores;
     private Monitor monitor;
 
-    public Clasificador(String nombre, Buzon buzonClasificacion, Buzon[] buzonConsolidacion, Monitor monitor) {
+    public Clasificador(String i, Buzon buzonClasificacion, Buzon[] buzonConsolidacion, Monitor monitor) {
         this.buzonClasificacion = buzonClasificacion;
         this.buzonServidores = buzonConsolidacion;
         this.monitor = monitor;
-        setName(nombre);
+        setName(i);
     }
 
     @Override
     public void run() {
         System.out.println(getName() + " iniciado");
         while (true) {
-            Evento e = buzonClasificacion.retirarSemi();
+            Evento e = buzonClasificacion.retirar();
             if (e.esFin()) {
                 break;
             }

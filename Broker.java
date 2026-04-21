@@ -22,7 +22,7 @@ public class Broker extends Thread {
         System.out.println("Broker iniciado");
         int procesados = 0;
         while (procesados < totEventos) {
-            Evento e = buzonEventos.retirarSemi();
+            Evento e = buzonEventos.retirar();
             if (random.nextInt(201) % 8 == 0) {
                 anomalos++;
                 buzonAlertas.depositarSemi(e);

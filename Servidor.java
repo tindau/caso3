@@ -16,7 +16,7 @@ public class Servidor extends Thread {
     public void run() {
         System.out.println("Servidor " + id + " iniciado");
         while (true) {
-            Evento e = buzonServidores.retirarSemi();
+            Evento e = buzonServidores.retirar();
             if (e.esFin()) {
                 break;
             }

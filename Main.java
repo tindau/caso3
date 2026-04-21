@@ -27,14 +27,14 @@ public class Main {
                 totalEventos += numEventosBase * i;
             }
             
-            System.out.println("SISTEMA IoT - CONFIGURACIÓN");
+            System.out.println("SISTEMA IoT - CONFIGURACION");
             System.out.println("Sensores: " + numSensores);
             System.out.println(" Eventos base: " + numEventosBase);
             System.out.println(" Total eventos: " + totalEventos);
             System.out.println(" Clasificadores: " + numClasificadores);
             System.out.println(" Servidores: " + numServidores);
-            System.out.println(" Cap. Clasificación: " + capClasificacion);
-            System.out.println(" Cap. Consolidación: " + capConsolidacion);
+            System.out.println(" Cap. Clasificacion: " + capClasificacion);
+            System.out.println(" Cap. Consolidacion: " + capConsolidacion);
             System.out.println();
             
 
@@ -98,7 +98,7 @@ public class Main {
             }
             
             System.out.println();
-            System.out.println("Sistema en ejecución.");
+            System.out.println("Sistema en ejecucion.");
             System.out.println();
             
   
@@ -132,35 +132,35 @@ public class Main {
             
 
             System.out.println();
-            System.out.println("Verificación final.");
+            System.out.println("Verificacion final.");
             System.out.println();
 
 
             if (buzonEntrada.estaVacio())
             {
-                System.out.println("Buzón de entrada vacío.");
+                System.out.println("Buzon de entrada vacio.");
             }
             else
             {
-                System.out.println("Buzón de entrada no-vacío.");
+                System.out.println("Buzon de entrada no-vacio.");
             }
 
             if (buzonAlertas.estaVacio())
             {
-                System.out.println("Buzón de Alertas vacío.");
+                System.out.println("Buzon de Alertas vacio.");
             }
             else
             {
-                System.out.println("Buzón de Alertas no-vacío.");
+                System.out.println("Buzon de Alertas no-vacio.");
             }
 
             if (buzonClasificacion.estaVacio())
             {
-                System.out.println("Buzón de clasificación vacío.");
+                System.out.println("Buzon de clasificacion vacio.");
             }
             else
             {
-                System.out.println("Buzón de clasificación no-vacío.");
+                System.out.println("Buzon de clasificacion no-vacio.");
             }
 
 
@@ -168,11 +168,11 @@ public class Main {
             {
                 if (buzonesConsolidacion[i].estaVacio())
                 {
-                    System.out.println("Buzón de Consolidació No." + (i+1) + "Vacío");
+                    System.out.println("Buzon de Consolidacion No." + (i+1) + "Vacio");
                 } 
                 else
                 {
-                    System.out.println("Buzón de Consolidació No." + (i+1) + "No-Vacío");
+                    System.out.println("Buzon de Consolidacion No." + (i+1) + "No-Vacio");
                 }
             }
             
@@ -185,7 +185,7 @@ public class Main {
         
         catch (IOException e) 
         {
-            System.err.println("Error al cargar configuración.");
+            System.err.println("Error al cargar configuracion.");
         } 
 
         catch (InterruptedException e) 

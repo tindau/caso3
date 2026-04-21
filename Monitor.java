@@ -14,7 +14,7 @@ public class Monitor
         boolean esUltimo = (terminados == numClasificadores);
         
         if (esUltimo) {
-            System.out.println("*** Clasificador es el ÚLTIMO en terminar ***");
+            System.out.println("*** Clasificador es el ULTIMO en terminar ***");
         } else {
             System.out.println("    Clasificador terminado (" + terminados + "/" + numClasificadores + ")");
         }
